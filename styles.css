@@ -263,6 +263,17 @@ body {
     text-align: right;
 }
 
+.destination-section:nth-child(6) .destination-content {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.destination-section:nth-child(7) .destination-content {
+    margin-left: 0;
+    text-align: left;
+}
+
 /* City markers on the path */
 .destination-section::before {
     content: '';
@@ -334,7 +345,8 @@ body {
     padding-right: 30px;
 }
 
-.destination-section:nth-child(3) .text-content .intro {
+.destination-section:nth-child(3) .text-content .intro,
+.destination-section:nth-child(6) .text-content .intro {
     border-left: none;
     border-bottom: 4px solid #c9a96e;
     padding-left: 0;
@@ -464,7 +476,9 @@ body {
     .destination-section:nth-child(2) .destination-content,
     .destination-section:nth-child(3) .destination-content,
     .destination-section:nth-child(4) .destination-content,
-    .destination-section:nth-child(5) .destination-content {
+    .destination-section:nth-child(5) .destination-content,
+    .destination-section:nth-child(6) .destination-content,
+    .destination-section:nth-child(7) .destination-content {
         margin-left: auto;
         margin-right: auto;
         text-align: center;
