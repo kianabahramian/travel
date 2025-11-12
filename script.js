@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetSection = document.querySelector(targetId);
             
             if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 70; // Account for fixed navbar
+                const offsetTop = targetSection.offsetTop - 80; // Account for fixed navbar (80px height)
                 
                 window.scrollTo({
                     top: offsetTop,
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetSection = document.querySelector(targetId);
             
             if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 70;
+                const offsetTop = targetSection.offsetTop - 80;
                 
                 window.scrollTo({
                     top: offsetTop,
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Highlight active navigation link
         let current = '';
         destinationSections.forEach(section => {
-            const sectionTop = section.offsetTop - 100;
+            const sectionTop = section.offsetTop - 120; // Slightly more offset for better highlighting
             const sectionHeight = section.clientHeight;
             
             if (scrollTop >= sectionTop && scrollTop < sectionTop + sectionHeight) {
@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const targetSection = sections[targetIndex];
             if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 70;
+                const offsetTop = targetSection.offsetTop - 80;
                 window.scrollTo({
                     top: offsetTop,
                     behavior: 'smooth'
@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let current = destinationSections[0];
         
         destinationSections.forEach(section => {
-            const sectionTop = section.offsetTop - 100;
+            const sectionTop = section.offsetTop - 120;
             if (scrollTop >= sectionTop) {
                 current = section;
             }
