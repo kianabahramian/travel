@@ -204,11 +204,26 @@ body {
 /* Main Content */
 .main-content {
     margin-top: 80px;
+    position: relative;
+}
+
+/* Travel Path Line */
+.main-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #c9a96e 0%, #8b7355 50%, #c9a96e 100%);
+    z-index: 1;
+    transform: translateX(-50%);
 }
 
 .destination-section {
     padding: 120px 0;
     position: relative;
+    z-index: 2;
 }
 
 .destination-section:nth-child(odd) {
@@ -219,12 +234,54 @@ body {
     background: white;
 }
 
-.destination-header {
-    text-align: center;
-    margin-bottom: 80px;
-    max-width: 800px;
+/* Alternating layout pattern */
+.destination-section:nth-child(1) .destination-content {
+    margin-left: 0;
+    text-align: left;
+}
+
+.destination-section:nth-child(2) .destination-content {
+    margin-left: auto;
+    margin-right: 0;
+    text-align: right;
+}
+
+.destination-section:nth-child(3) .destination-content {
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
+}
+
+.destination-section:nth-child(4) .destination-content {
+    margin-left: 0;
+    text-align: left;
+}
+
+.destination-section:nth-child(5) .destination-content {
+    margin-left: auto;
+    margin-right: 0;
+    text-align: right;
+}
+
+/* City markers on the path */
+.destination-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background: #c9a96e;
+    border: 4px solid white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    box-shadow: 0 0 0 3px #c9a96e;
+}
+
+.destination-header {
+    margin-bottom: 80px;
+    max-width: 600px;
 }
 
 .destination-header h2 {
@@ -247,9 +304,7 @@ body {
 }
 
 .destination-content {
-    display: block;
-    max-width: 800px;
-    margin: 0 auto;
+    max-width: 600px;
     padding: 0 40px;
 }
 
@@ -266,10 +321,24 @@ body {
     margin-bottom: 40px;
     font-weight: 300;
     line-height: 1.6;
-    text-align: center;
     border-left: 4px solid #c9a96e;
     padding-left: 30px;
-    margin-left: 0;
+}
+
+/* Adjust intro alignment for different sections */
+.destination-section:nth-child(2) .text-content .intro,
+.destination-section:nth-child(5) .text-content .intro {
+    border-left: none;
+    border-right: 4px solid #c9a96e;
+    padding-left: 0;
+    padding-right: 30px;
+}
+
+.destination-section:nth-child(3) .text-content .intro {
+    border-left: none;
+    border-bottom: 4px solid #c9a96e;
+    padding-left: 0;
+    padding-bottom: 20px;
 }
 
 .text-content h3 {
@@ -390,8 +459,35 @@ body {
         font-size: 2.5rem;
     }
     
-    .destination-content {
+    /* Reset mobile layout to center */
+    .destination-section:nth-child(1) .destination-content,
+    .destination-section:nth-child(2) .destination-content,
+    .destination-section:nth-child(3) .destination-content,
+    .destination-section:nth-child(4) .destination-content,
+    .destination-section:nth-child(5) .destination-content {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
         padding: 0 20px;
+        max-width: 100%;
+    }
+    
+    .destination-header {
+        text-align: center;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    /* Reset intro borders for mobile */
+    .text-content .intro {
+        border-left: 4px solid #c9a96e;
+        border-right: none;
+        border-bottom: none;
+        padding-left: 20px;
+        padding-right: 0;
+        padding-bottom: 0;
+        text-align: left;
     }
     
     .nav-container {
@@ -409,6 +505,15 @@ body {
     .image-gallery {
         grid-template-columns: 1fr;
         gap: 20px;
+    }
+    
+    /* Hide travel path line on mobile */
+    .main-content::before {
+        display: none;
+    }
+    
+    .destination-section::before {
+        display: none;
     }
 }
 
@@ -428,7 +533,7 @@ body {
     
     .text-content .intro {
         font-size: 1.3rem;
-        padding-left: 20px;
+        padding-left: 15px;
         border-left: 3px solid #c9a96e;
     }
     
