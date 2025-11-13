@@ -34,13 +34,24 @@ document.addEventListener('DOMContentLoaded', function() {
         return section.getBoundingClientRect().top + window.pageYOffset;
     }
 
-    // Precise scrolling: align destination title just below navbar
+    // Simplified precise scrolling leveraging CSS scroll-margin-top
     function scrollToSection(section, behavior = 'smooth') {
         if (!section) return;
-        const navHeight = navbar ? navbar.offsetHeight : 0;
-        const headerTop = getSectionHeaderTop(section);
-        const targetY = headerTop - navHeight - SCROLL_BUFFER;
-        window.scrollTo({ top: targetY, behavior });
+        const header = section.querySelector('.destination-header') || section;
+        header.scrollIntoView({ behavior, block: 'start' });
+        // Post-adjust refinement if fonts reflow; run a couple frames
+        let attempts = 0;
+        function refine() {
+            attempts++;
+            const navHeight = navbar ? navbar.offsetHeight : 0;
+            const headerRect = header.getBoundingClientRect();
+            // If header is obscured by navbar, nudge downward
+            if (headerRect.top < navHeight + SCROLL_BUFFER && attempts < 4) {
+                window.scrollBy({ top: headerRect.top - (navHeight + SCROLL_BUFFER), behavior: 'auto' });
+                requestAnimationFrame(refine);
+            }
+        }
+        requestAnimationFrame(refine);
     }
 
     // Smooth scrolling for navigation links (accurate to section title)

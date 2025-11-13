@@ -278,6 +278,10 @@ body {
     margin-bottom: 80px;
     max-width: 600px;
 }
+.destination-header {
+    /* Ensures when scrolled into view the title sits below the fixed navbar */
+    scroll-margin-top: 88px; /* navbar height (80px) + buffer */
+}
 
 .destination-header h2 {
     font-family: 'Georgia', serif;
