@@ -21,13 +21,26 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Helper for precise scrolling accounting for dynamic navbar height
+    // Configurable buffer for fine-tuning alignment (can adjust to 0..10 as desired)
+    const SCROLL_BUFFER = 4; // pixels between navbar bottom and destination title
+
+    // Helper to get the vertical position of a section's header (destination title)
+    function getSectionHeaderTop(section) {
+        if (!section) return 0;
+        const header = section.querySelector('.destination-header');
+        if (header) {
+            return header.getBoundingClientRect().top + window.pageYOffset;
+        }
+        return section.getBoundingClientRect().top + window.pageYOffset;
+    }
+
+    // Precise scrolling: align destination title just below navbar
     function scrollToSection(section, behavior = 'smooth') {
         if (!section) return;
         const navHeight = navbar ? navbar.offsetHeight : 0;
-        // Position the section title directly below navbar, minor +1 to avoid hidden border
-        const target = section.getBoundingClientRect().top + window.pageYOffset - navHeight + 1;
-        window.scrollTo({ top: target, behavior });
+        const headerTop = getSectionHeaderTop(section);
+        const targetY = headerTop - navHeight - SCROLL_BUFFER;
+        window.scrollTo({ top: targetY, behavior });
     }
 
     // Smooth scrolling for navigation links (accurate to section title)
@@ -78,9 +91,9 @@ document.addEventListener('DOMContentLoaded', function() {
         let current = '';
         const navHeight = navbar ? navbar.offsetHeight : 0;
         destinationSections.forEach(section => {
-            const sectionTop = section.offsetTop - navHeight - 40; // buffer for early highlight
+            const headerTop = getSectionHeaderTop(section) - navHeight - 20; // early highlight before exact alignment
             const sectionHeight = section.clientHeight;
-            if (scrollTop >= sectionTop && scrollTop < sectionTop + sectionHeight) {
+            if (scrollTop >= headerTop && scrollTop < headerTop + sectionHeight) {
                 current = '#' + section.getAttribute('id');
             }
         });
@@ -234,8 +247,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const navHeight = navbar ? navbar.offsetHeight : 0;
         let current = destinationSections[0];
         destinationSections.forEach(section => {
-            const sectionTop = section.offsetTop - navHeight - 40;
-            if (scrollTop >= sectionTop) {
+            const headerTop = getSectionHeaderTop(section) - navHeight - 20;
+            if (scrollTop >= headerTop) {
                 current = section;
             }
         });
