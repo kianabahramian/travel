@@ -41,7 +41,7 @@ body {
     margin: 0 auto;
     padding: 0 40px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     height: 80px;
 }
@@ -317,16 +317,31 @@ body {
     order: 2;
 }
 
+/* Added pattern for 8th destination after inserting Zaanse Schans */
 .destination-section:nth-child(7) .destination-content {
-    margin-left: 0;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .destination-section:nth-child(7) .text-content {
     order: 1;
-    text-align: left;
+    text-align: center;
 }
 
 .destination-section:nth-child(7) .image-gallery {
+    order: 2;
+}
+
+.destination-section:nth-child(8) .destination-content {
+    margin-left: 0;
+}
+
+.destination-section:nth-child(8) .text-content {
+    order: 1;
+    text-align: left;
+}
+
+.destination-section:nth-child(8) .image-gallery {
     order: 2;
 }
 
@@ -558,7 +573,8 @@ body {
     .destination-section:nth-child(4) .destination-content,
     .destination-section:nth-child(5) .destination-content,
     .destination-section:nth-child(6) .destination-content,
-    .destination-section:nth-child(7) .destination-content {
+    .destination-section:nth-child(7) .destination-content,
+    .destination-section:nth-child(8) .destination-content {
         margin-left: auto;
         margin-right: auto;
         padding: 0 20px;
@@ -571,7 +587,8 @@ body {
     .destination-section:nth-child(4) .text-content,
     .destination-section:nth-child(5) .text-content,
     .destination-section:nth-child(6) .text-content,
-    .destination-section:nth-child(7) .text-content {
+    .destination-section:nth-child(7) .text-content,
+    .destination-section:nth-child(8) .text-content {
         order: 1;
         text-align: center;
     }
@@ -582,7 +599,8 @@ body {
     .destination-section:nth-child(4) .image-gallery,
     .destination-section:nth-child(5) .image-gallery,
     .destination-section:nth-child(6) .image-gallery,
-    .destination-section:nth-child(7) .image-gallery {
+    .destination-section:nth-child(7) .image-gallery,
+    .destination-section:nth-child(8) .image-gallery {
         order: 2;
     }
     
