@@ -21,21 +21,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Smooth scrolling for navigation links
+    // Helper for precise scrolling accounting for dynamic navbar height
+    function scrollToSection(section, behavior = 'smooth') {
+        if (!section) return;
+        const navHeight = navbar ? navbar.offsetHeight : 0;
+        // Position the section title directly below navbar, minor +1 to avoid hidden border
+        const target = section.getBoundingClientRect().top + window.pageYOffset - navHeight + 1;
+        window.scrollTo({ top: target, behavior });
+    }
+
+    // Smooth scrolling for navigation links (accurate to section title)
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
             const targetSection = document.querySelector(targetId);
-            
-            if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 80; // Account for fixed navbar (80px height)
-                
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-            }
+            scrollToSection(targetSection);
         });
     });
 
@@ -45,16 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ctaButton.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            
-            if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 80;
-                
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-            }
+            scrollToSection(document.querySelector(targetId));
         });
     }
 
@@ -84,10 +76,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Highlight active navigation link
         let current = '';
+        const navHeight = navbar ? navbar.offsetHeight : 0;
         destinationSections.forEach(section => {
-            const sectionTop = section.offsetTop - 120; // Slightly more offset for better highlighting
+            const sectionTop = section.offsetTop - navHeight - 40; // buffer for early highlight
             const sectionHeight = section.clientHeight;
-            
             if (scrollTop >= sectionTop && scrollTop < sectionTop + sectionHeight) {
                 current = '#' + section.getAttribute('id');
             }
@@ -106,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const sectionHeight = section.clientHeight;
             const windowBottom = scrollTop + windowHeight;
             
-            if (windowBottom > sectionTop + 200) {
+            if (windowBottom > sectionTop + 120) {
                 section.classList.add('animate');
             }
         });
@@ -214,13 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             const targetSection = sections[targetIndex];
-            if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 80;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-            }
+            scrollToSection(targetSection);
         }
         
         // Home key - scroll to top
@@ -245,15 +231,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Helper function to get current section in viewport
     function getCurrentSection() {
         const scrollTop = window.pageYOffset;
+        const navHeight = navbar ? navbar.offsetHeight : 0;
         let current = destinationSections[0];
-        
         destinationSections.forEach(section => {
-            const sectionTop = section.offsetTop - 120;
+            const sectionTop = section.offsetTop - navHeight - 40;
             if (scrollTop >= sectionTop) {
                 current = section;
             }
         });
-        
         return current;
     }
 
